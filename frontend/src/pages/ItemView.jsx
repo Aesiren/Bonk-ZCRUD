@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getAllItems } from "../api/api.js";
 
 function ItemView() {
@@ -13,6 +14,10 @@ function ItemView() {
     temp();
 
   }, []);
+
+  function deleteItem(itemId) {
+    console.log("delete button clicked")
+  }
 
 
   return (
@@ -29,6 +34,7 @@ function ItemView() {
             <th>Name</th>
             <th>Description</th>
             <th>Quantity</th>
+            <th>Options</th>
           </tr>
           {items.map((item, key) => {
             return (<tr>
@@ -37,6 +43,11 @@ function ItemView() {
               <td>{item.item_name}</td>
               <td>{item.description}</td>
               <td>{item.quantity}</td>
+              <td>
+                <Link to={`/items/${item.item_id}`}><button>View</button></Link>
+                <button onClick={() => deleteItem(item.item_id)}>Delete</button>
+              </td>
+
             </tr>)
           })}
         </table>
