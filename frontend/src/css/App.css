@@ -26,7 +26,8 @@
   grid-row-start: 2;
   grid-column-start: 1;
   border: 10px;
-  border-style: silver;
+  border-style: inset;
+  border-color: silver;
 }
 
 #main {
