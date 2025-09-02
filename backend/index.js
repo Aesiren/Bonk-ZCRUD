@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const app = express(); await
+const app = express();
 const port = 3000;
 const knex = require('knex')(require('./knexfile.js')['development']);
 
@@ -86,7 +86,7 @@ app.get('/item/:id', (req, res) => {
     })
 })
 
-app.get('/:user', (req, res) => {
+app.get('/user/:user', (req, res) => {
   knex('user')
     .select('*')
     .from('user')
@@ -96,7 +96,7 @@ app.get('/:user', (req, res) => {
     })
 })
 
-app.get('/:user/items', (req, res) => {
+app.get('/user/:user/items', (req, res) => {
   const id = req.params.user;
   knex('item')
     .select('*')
@@ -136,7 +136,7 @@ app.patch('user/:userid/patch', async (req, res) => {
 })
 
 //Delete
-app.delete('/item/:itemid', async (req, res) => {
+app.delete('/item/:itemid/delete', async (req, res) => {
   const id = req.params.itemid;
 
   try {
@@ -149,7 +149,7 @@ app.delete('/item/:itemid', async (req, res) => {
   }
 })
 
-app.delete('/user/:userid', async (req, res) => {
+app.delete('/user/:userid/delete', async (req, res) => {
   const id = req.params.userid;
 
   try {
