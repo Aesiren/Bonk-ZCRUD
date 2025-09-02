@@ -13,10 +13,9 @@ function App() {
   return (
     <div className="app">
 
-      <div>
-        <Header />
-      </div>
-      <div>
+
+      <Header />
+      <div className="sidebar">
         <Sidebar />
       </div>
 
