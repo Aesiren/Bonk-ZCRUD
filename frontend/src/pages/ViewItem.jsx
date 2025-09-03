@@ -28,6 +28,14 @@ function ViewItem() {
     }
   }, [item])
 
+  async function updateItem(formData) {
+
+  }
+
+  function switchView() {
+    setEdit(!edit);
+  }
+
   if (!item) {
     return (<>Loading</>)
   }
@@ -35,21 +43,25 @@ function ViewItem() {
   return (
     <div className="view-item">
       <h1>Item Details</h1>
+      <button onClick={() => switchView()} disabled={edit}>Edit Item</button><br />
+      <form className="view-form" action={updateItem}>
+        <label>Item ID:</label><br />
+        <input type="integer" disabled={true} name="item_id" defaultValue={item[0].item_id} />
+        <br />
+        <label>Owning User:</label><br />
+        <input type="integer" disabled={true} name="user_id" defaultValue={item[0].user} />
+        <br />
+        <label>Item Name:</label><br />
+        <input type="text" disabled={!edit} name="item_name" defaultValue={item[0].item_name} />
+        <br />
+        <label>Description:</label><br />
+        <input type="text" disabled={!edit} name="description" defaultValue={item[0].description} />
+        <br />
+        <label>Quantity:</label><br />
+        <input type="integer" disabled={!edit} name="quantity" defaultValue={item[0].quantity} />
+        <button type="submit" disabled={!edit}>Save</button>
+      </form>
 
-      <label>Item ID:</label>
-      <label>{item[0].item_id}</label>
-      <br />
-      <label>Owning User:</label>
-      <label>{item[0].user}</label>
-      <br />
-      <label>Item Name:</label>
-      <label>{item[0].item_name}</label>
-      <br />
-      <label>Description:</label>
-      <label>{item[0].description}</label>
-      <br />
-      <label>Quantity:</label>
-      <label>{item[0].quantity}</label>
 
     </div>
   )

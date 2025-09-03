@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getAllItems, getItemsByUser } from "../api/api.js";
 import { UserContext } from "../context/UserContext";
 
@@ -8,6 +8,7 @@ function ItemView() {
   const [userItems, setUserItems] = useState([]);
   const { user } = useContext(UserContext);
   const [userView, setUserView] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const temp = async () => {
@@ -29,20 +30,6 @@ function ItemView() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (user.user_id > 0) {
-  //     console.log("Switching to USer-only content")
-  //     const temp = async () => {
-  //       let data = await getItemsByUser(user.user_id);
-  //       setUserItems(data);
-  //     }
-  //     temp();
-  //     setUserView(true);
-  //   } else {
-  //     setUserView(false);
-  //   }
-  // }, [user])
-
   function deleteItem(itemId) {
     console.log("delete button clicked")
   }
@@ -58,6 +45,7 @@ function ItemView() {
         <h1>Item View</h1>
 
         <button onClick={() => switchView()}>All Items</button>
+        <button onClick={() => { navigate('/item/new') }}>Add Item</button>
 
         <div className="itemTable">
           <table>

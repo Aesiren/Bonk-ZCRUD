@@ -38,11 +38,11 @@ export default function EditProfile() {
       <form className="profile" action={editData}>
         <label>User Id: {user.user_id}</label>
         <label>First Name:</label>
-        <input type="text" name="first_name" default={user.first_name} />
+        <input type="text" name="first_name" value={user.first_name} />
         <label>Last Name:</label>
-        <input type="text" name="last_name" default={user.last_name} />
+        <input type="text" name="last_name" value={user.last_name} />
         <label>Username: </label>
-        <input type="text" name="username" default={user.username} />
+        <input type="text" name="username" value={user.username} />
         <label>Password: </label>
         <input type="password" name="password" />
         <button type="submit">Save</button>
