@@ -42,7 +42,10 @@ export async function addItem(data) {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      data
+      user: data.user,
+      item_name: data.item_name,
+      description: data.description,
+      quantity: data.quantity
     })
   })
     .then((res) => res.json());

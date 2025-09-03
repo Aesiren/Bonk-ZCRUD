@@ -5,7 +5,9 @@ import { getOneItem } from '../api/api.js';
 
 function ViewItem() {
   const { itemId } = useParams();
-  const [item, setItem] = useState(null)
+  const [item, setItem] = useState(null);
+  const [edit, setEdit] = useState(false);
+
 
   useEffect(() => {
     const getItem = async () => {

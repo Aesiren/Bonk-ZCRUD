@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import '../css/App.css'
 import { UserContext } from "../context/UserContext.js";
 import Login from "./Login";
@@ -8,6 +8,7 @@ import ItemView from "./ItemView";
 import ViewItem from "./ViewItem";
 import Signup from "./Signup";
 import Home from "./Home";
+import AddItem from "./AddItem";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -28,6 +29,7 @@ function App() {
             <Route path="/profile" element={<EditProfile />} />
             <Route path="/items" element={<ItemView />} />
             <Route path="/items/:itemId" element={<ViewItem />} />
+            <Route path="/items/new" element={<AddItem />} />
             <Route path="/signup" element={<Signup />} />
           </Routes>
         </div>
@@ -49,9 +51,11 @@ function Header() {
 
 function Sidebar() {
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   function logout() {
     setUser([]);
+    navigate('/');
   }
   if (user.user_id > 0) {
     return (
