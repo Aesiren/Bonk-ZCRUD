@@ -86,6 +86,34 @@ app.get('/item/:id', (req, res) => {
     })
 })
 
+//LOGIN functions
+app.get('/login', async (req, res) => {
+  const { userName, password } = req.body;
+
+  try {
+    const userData = await knex('user')
+      .select('user_id', 'password')
+      .where({ username: userName })
+      .first();
+
+    if (!userData) {
+      return res.status(400).json({ message: "No such user" });
+    }
+
+    const { user_id, password: storedPassword } = userData;
+
+    if (password === storedPassword) {
+      return res.status(200).json({ user_id });
+    } else {
+      return res.status(401).json({ message: "Incorrect password" });
+    }
+  } catch (err) {
+    console.error("Login error: ", err);
+    res.status(500).json({ message: "Server error on login" });
+  }
+
+})
+
 app.get('/user/:user', (req, res) => {
   knex('user')
     .select('*')

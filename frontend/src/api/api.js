@@ -17,6 +17,19 @@ export async function getItemsByUser(userId) {
   return fetch(`${backend}/user/${userId}/items`).then((res) => res.json());
 }
 
+//LOGIN function
+export async function userLogin(username, password) {
+  return fetch(`${backend}/login`, {
+    method: "GET",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({
+      userName: username,
+      password: password
+    })
+  })
+    .then((res) => res.json());
+}
+
 //POST functions
 export async function addItem(data) {
   return fetch(`${backend}/item/new`, {

@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, userContext } from 'react'
 import { Routes, Route, Link } from "react-router-dom";
 import '../css/App.css'
+import { UserContext } from "../context/UserContext.js";
 import Login from "./Login";
 import ItemView from "./ItemView";
 import ViewItem from "./ViewItem";
@@ -8,25 +9,26 @@ import Signup from "./Signup";
 import Home from "./Home";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [user, setUser] = useState([]);
 
   return (
     <div className="app">
 
+      <UserContext.Provider value={{ user, setUser }}>
+        <Header />
+        <Sidebar />
 
-      <Header />
-      <Sidebar />
-
-      <div id="main">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/items" element={<ItemView />} />
-          <Route path="/items/:itemId" element={<ViewItem />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
-      </div>
-
+        <div id="main">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/items" element={<ItemView />} />
+            <Route path="/items/:itemId" element={<ViewItem />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </div>
+      </UserContext.Provider>
     </div>
   )
 }
