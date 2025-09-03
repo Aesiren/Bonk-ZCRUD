@@ -17,6 +17,12 @@ export async function getItemsByUser(userId) {
   return fetch(`${backend}/user/${userId}/items`).then((res) => res.json());
 }
 
+export async function checkUserByName(username) {
+  let data = await fetch(`${backend}/user/username/${username}`).then((res) => res.json());
+  let check = data > 0 ? false : true;
+  return check;
+}
+
 //LOGIN function
 export async function userLogin(username, password) {
   return fetch(`${backend}/login`, {
@@ -47,7 +53,10 @@ export async function addUser(data) {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      data
+      first_name: data.first_name,
+      last_name: data.last_name,
+      username: data.username,
+      password: data.password
     })
   })
     .then((res) => res.json());

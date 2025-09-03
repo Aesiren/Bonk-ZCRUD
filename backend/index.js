@@ -126,6 +126,7 @@ app.get('/user/:user', (req, res) => {
 
 app.get('/user/:user/items', (req, res) => {
   const id = req.params.user;
+
   knex('item')
     .select('*')
     .from('item')
@@ -133,8 +134,21 @@ app.get('/user/:user/items', (req, res) => {
     .then(data => {
       res.status(200).json(data);
     })
+
+
 })
 
+app.get(`/user/username/:username`, (req, res) => {
+  const username = req.params.username;
+  knex('user')
+    .select('user_id')
+    .from('user')
+    .where('username', username)
+    .first()
+    .then(data => {
+      res.status(200).json(data);
+    })
+})
 
 //Update (PATCH)
 app.patch('/item/:itemid/patch', async (req, res) => {

@@ -59,7 +59,7 @@ function Sidebar() {
         <h1>Sidebar</h1>
         <Link to="/"><button>Home</button></Link><br />
         <Link to="/profile"><button>My Profile</button></Link><br />
-        <Link to="/items"><button>My Items</button></Link>
+        <Link to="/items"><button>My Items</button></Link><br />
         <button onClick={() => logout()}>Logout</button>
       </div>
     )
@@ -69,6 +69,7 @@ function Sidebar() {
       <h1>Sidebar</h1>
       <Link to="/"><button>Home</button></Link><br />
       <Link to="/login"><button>Login</button></Link><br />
+      <Link to="/signup"><button>Signup</button></Link><br />
       <Link to="/items"><button>All Items</button></Link>
 
     </div>
