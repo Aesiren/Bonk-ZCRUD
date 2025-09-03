@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from "react-router-dom";
-import { getOneItem } from '../api/api.js';
+import { getOneItem, editItem } from '../api/api.js';
 import { UserContext } from '../context/UserContext';
 
 
@@ -31,7 +31,24 @@ function ViewItem() {
   }, [item])
 
   async function updateItem(formData) {
+    if (user.user_id > 0) {
+      const data = {
+        user: user.user_id,
+        item_name: formData.get('item_name'),
+        description: formData.get('description'),
+        quantity: formData.get('quantity')
+      }
 
+      await editItem(itemId, data);
+
+      let temp = await getOneItem(itemId);
+      setItem(temp);
+
+      switchView();
+    }
+    else {
+      alert('You must be logged in to add an item')
+    }
   }
 
   function switchView() {
@@ -54,10 +71,10 @@ function ViewItem() {
       <button onClick={() => switchView()} disabled={edit}>Edit Item</button><br />
       <form className="view-form" action={updateItem}>
         <label>Item ID:</label><br />
-        <input type="integer" disabled={true} name="item_id" defaultValue={item[0].item_id} />
+        <input type="number" disabled={true} name="item_id" defaultValue={item[0].item_id} />
         <br />
         <label>Owning User:</label><br />
-        <input type="integer" disabled={true} name="user_id" defaultValue={item[0].user} />
+        <input type="number" disabled={true} name="user_id" defaultValue={item[0].user} />
         <br />
         <label>Item Name:</label><br />
         <input type="text" disabled={!edit} name="item_name" defaultValue={item[0].item_name} />
@@ -66,7 +83,7 @@ function ViewItem() {
         <input type="text" disabled={!edit} name="description" defaultValue={item[0].description} />
         <br />
         <label>Quantity:</label><br />
-        <input type="integer" disabled={!edit} name="quantity" defaultValue={item[0].quantity} />
+        <input type="number" disabled={!edit} name="quantity" defaultValue={item[0].quantity} />
         <button type="submit" disabled={!edit}>Save</button>
       </form>
 

@@ -184,7 +184,7 @@ app.delete('/item/:itemid/delete', async (req, res) => {
   try {
     await knex('item').where('item_id', id).del();
     console.log('Item deleted');
-    res.status(500).json({ message: 'Item deleted' });
+    res.status(200).json({ message: 'Item deleted' });
   } catch (err) {
     console.error('ERROR ', err);
     res.status(500).json({ error: 'Item failed to delete' });

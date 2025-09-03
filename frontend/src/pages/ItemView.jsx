@@ -1,7 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllItems, getItemsByUser } from "../api/api.js";
+import { getAllItems, getItemsByUser, deleteItem } from "../api/api.js";
 import { UserContext } from "../context/UserContext";
+import ConfirmDialog from "../components/Dialog.jsx";
+import Alert from '@mui/material/Alert';
 
 function ItemView() {
   const [items, setItems] = useState([]);
@@ -9,6 +11,9 @@ function ItemView() {
   const { user } = useContext(UserContext);
   const [userView, setUserView] = useState(false);
   const navigate = useNavigate();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [alert, setAlert] = useState(false);
 
   useEffect(() => {
     const temp = async () => {
@@ -30,10 +35,31 @@ function ItemView() {
     }
   }, []);
 
-  function deleteItem(itemId) {
-    console.log("delete button clicked")
+  async function deleteItemClick(itemId, itemOwner) {
+    if (itemOwner === user.user_id) {
+      setItemToDelete(itemId);
+      setDialogOpen(true);
+
+    } else {
+      setAlert(true)
+    }
   }
 
+  async function onConfirm(itemId) {
+    console.log("Deleting item ", itemId);
+    await deleteItem(itemId);
+    let temp = await getItemsByUser(user.user_id);
+    setUserItems(temp);
+    setDialogOpen(false);
+  }
+
+  function onDeny() {
+    setDialogOpen(false);
+  }
+
+  function turnOffAlert() {
+    setAlert(false);
+  }
   function switchView() {
     setUserView(!userView)
   }
@@ -42,10 +68,17 @@ function ItemView() {
   if (userView) {
     return (
       <div className="itemview">
-        <h1>Item View</h1>
-
+        <h1>My Items</h1>
+        {dialogOpen && (
+          <ConfirmDialog confirm={onConfirm} deny={onDeny} itemId={itemToDelete} />
+        )}
+        {alert && (
+          <Alert severity="error" onClose={() => turnOffAlert()}>
+            Only the owner can delete an item.
+          </Alert>
+        )}
         <button onClick={() => switchView()}>All Items</button>
-        <button onClick={() => { navigate('/item/new') }}>Add Item</button>
+        <button onClick={() => { navigate('/items/new') }}>Add Item</button>
 
         <div className="itemTable">
           <table>
@@ -66,7 +99,7 @@ function ItemView() {
                 <td>{item.quantity}</td>
                 <td>
                   <Link to={`/items/${item.item_id}`}><button>View</button></Link>
-                  <button onClick={() => deleteItem(item.item_id)}>Delete</button>
+                  <button onClick={() => deleteItemClick(item.item_id, item.user)}>Delete</button>
                 </td>
 
               </tr>)
@@ -80,9 +113,17 @@ function ItemView() {
   } else {
     return (
       <div className="itemview">
-        <h1>Item View</h1>
-
+        <h1>All Items</h1>
+        {dialogOpen && (
+          <ConfirmDialog confirm={onConfirm} deny={onDeny} itemId={itemToDelete} />
+        )}
+        {alert && (
+          <Alert severity="error" onClose={() => turnOffAlert()}>
+            Only the owner can delete an item.
+          </Alert>
+        )}
         <button onClick={() => switchView()}>My Items</button>
+        <button onClick={() => { navigate('/items/new') }}>Add Item</button>
 
         <div className="itemTable">
           <table>
@@ -103,7 +144,7 @@ function ItemView() {
                 <td>{item.quantity}</td>
                 <td>
                   <Link to={`/items/${item.item_id}`}><button>View</button></Link>
-                  <button onClick={() => deleteItem(item.item_id)}>Delete</button>
+                  <button onClick={() => deleteItemClick(item.item_id, item.user)}>Delete</button>
                 </td>
 
               </tr>)

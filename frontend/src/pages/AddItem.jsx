@@ -38,7 +38,8 @@ export default function AddItem() {
         <input type="text" name="item_name" /><br />
         <label>Item Description:</label><br />
         <input type="text" name="description" /><br />
-        <label type="number" name="quantity" /><br />
+        <label>Quantity:</label><br />
+        <input type="number" name="quantity" /><br />
         <button type="submit">Save</button>
 
 
