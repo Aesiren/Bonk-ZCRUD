@@ -17,7 +17,7 @@ function Login() {
       let currentUser = await getUser(userId.user_id);
       console.log(currentUser);
       setUser(currentUser[0]);
-      navigate(`/profile`);
+      navigate(`/items`);
     }
   }
 
