@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from "react-router-dom";
 import { getOneItem } from '../api/api.js';
+import { UserContext } from '../context/UserContext';
 
 
 function ViewItem() {
   const { itemId } = useParams();
   const [item, setItem] = useState(null);
   const [edit, setEdit] = useState(false);
+  const { user } = useContext(UserContext);
 
 
   useEffect(() => {
@@ -33,7 +35,13 @@ function ViewItem() {
   }
 
   function switchView() {
-    setEdit(!edit);
+    if (user.user_id === item[0].user) {
+      setEdit(!edit);
+    } else {
+      alert('Only the owning user can edit an item')
+
+    }
+
   }
 
   if (!item) {
