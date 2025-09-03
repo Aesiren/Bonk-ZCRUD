@@ -48,16 +48,19 @@ function Header() {
 }
 
 function Sidebar() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
+  function logout() {
+    setUser([]);
+  }
   if (user.user_id > 0) {
     return (
       <div className="sidebar">
         <h1>Sidebar</h1>
         <Link to="/"><button>Home</button></Link><br />
         <Link to="/profile"><button>My Profile</button></Link><br />
-        <Link to="/items"><button>All Items</button></Link>
-
+        <Link to="/items"><button>My Items</button></Link>
+        <button onClick={() => logout()}>Logout</button>
       </div>
     )
   }
