@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { addItem } from "../api/api.js";
+import Alert from '@mui/material/Alert';
 
 
 export default function AddItem() {
@@ -25,10 +26,10 @@ export default function AddItem() {
 
   if (!user) {
     return (
-      <div className="error">
+      <Alert variant="filled" severity="error">
         <h1>You can only add items as a registered user.</h1><br />
         <h1>Please <Link to="/login">Login</Link> or <Link to="/signup">Signup</Link> to continue.</h1>
-      </div>
+      </Alert>
     )
   }
   return (
