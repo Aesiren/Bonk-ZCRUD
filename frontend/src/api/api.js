@@ -75,11 +75,14 @@ export async function editItem(itemId, data) {
 }
 
 export async function editUser(userId, data) {
-  return fetch(`${backend}/item/${userId}/patch`, {
+  return fetch(`${backend}/user/${userId}/patch`, {
     method: "PATCH",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      data
+      first_name: data.first_name,
+      last_name: data.last_name,
+      username: data.username,
+      password: data.password
     })
   })
     .then((res) => res.json());

@@ -3,6 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import '../css/App.css'
 import { UserContext } from "../context/UserContext.js";
 import Login from "./Login";
+import EditProfile from "./EditProfile";
 import ItemView from "./ItemView";
 import ViewItem from "./ViewItem";
 import Signup from "./Signup";
@@ -24,6 +25,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<EditProfile />} />
             <Route path="/items" element={<ItemView />} />
             <Route path="/items/:itemId" element={<ViewItem />} />
             <Route path="/signup" element={<Signup />} />
@@ -46,6 +48,19 @@ function Header() {
 }
 
 function Sidebar() {
+  const { user } = useContext(UserContext);
+
+  if (user.user_id > 0) {
+    return (
+      <div className="sidebar">
+        <h1>Sidebar</h1>
+        <Link to="/"><button>Home</button></Link><br />
+        <Link to="/profile"><button>My Profile</button></Link><br />
+        <Link to="/items"><button>All Items</button></Link>
+
+      </div>
+    )
+  }
   return (
     <div className="sidebar">
       <h1>Sidebar</h1>

@@ -1,10 +1,11 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userLogin, getUser } from "../api/api.js";
 
 function Login() {
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   async function checkLogin(formData) {
     let userName = formData.get('username');
@@ -16,7 +17,7 @@ function Login() {
       let currentUser = await getUser(userId.user_id);
       console.log(currentUser);
       setUser(currentUser[0]);
-
+      navigate(`/profile`);
     }
   }
 

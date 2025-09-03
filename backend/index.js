@@ -150,7 +150,7 @@ app.patch('/item/:itemid/patch', async (req, res) => {
   }
 })
 
-app.patch('user/:userid/patch', async (req, res) => {
+app.patch('/user/:userid/patch', async (req, res) => {
   const id = req.params.userid;
   const data = req.body;
 
