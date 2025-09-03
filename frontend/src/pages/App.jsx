@@ -1,4 +1,4 @@
-import { useState, userContext } from 'react'
+import { useState, useContext } from 'react'
 import { Routes, Route, Link } from "react-router-dom";
 import '../css/App.css'
 import { UserContext } from "../context/UserContext.js";
@@ -11,6 +11,7 @@ import Home from "./Home";
 function App() {
   const [count, setCount] = useState(0);
   const [user, setUser] = useState([]);
+
 
   return (
     <div className="app">
@@ -34,10 +35,12 @@ function App() {
 }
 
 function Header() {
+  const { user } = useContext(UserContext);
 
   return (
     <div className="header">
       <h1>CRUD App</h1>
+      <label>Welcome {user.first_name}</label>
     </div>
   )
 }

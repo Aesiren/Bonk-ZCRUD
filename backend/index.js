@@ -87,7 +87,7 @@ app.get('/item/:id', (req, res) => {
 })
 
 //LOGIN functions
-app.get('/login', async (req, res) => {
+app.post('/login', async (req, res) => {
   const { userName, password } = req.body;
 
   try {

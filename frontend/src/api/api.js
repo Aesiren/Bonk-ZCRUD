@@ -20,7 +20,7 @@ export async function getItemsByUser(userId) {
 //LOGIN function
 export async function userLogin(username, password) {
   return fetch(`${backend}/login`, {
-    method: "GET",
+    method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
       userName: username,
