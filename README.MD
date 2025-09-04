@@ -1,12 +1,15 @@
 # Matrix Inventory Application
 # Version 1.0
 # Released 04 September 2025
-# Author: Evan M. Bonk\
+# Author: Evan M. Bonk
 
 
 ## Requirements:
 ## WINDOWS:
 - Install WSL. Refer to documents here: https://learn.microsoft.com/en-us/windows/wsl/install
+## Unix/Mac
+- You're probably fine/
+## ALL
 - Must have Docker installed and available. Recommend v28.2.2. No other versions tested
 -- if you do not have Docker already, refer to Docker install documentation at https://docs.docker.com/
 - Must have Node Package Manager (NPM) and Node.js installed. Recommend NPM v10.9.2 and Node v22.16.0. No other versions tested
