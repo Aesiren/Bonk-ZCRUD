@@ -35,16 +35,17 @@ export default function EditProfile() {
 
   return (
     <div className="editProfile">
+      <h1>Edit Profile</h1>
       <form className="profile" action={editData}>
-        <label>User Id: {user.user_id}</label>
-        <label>First Name:</label>
-        <input type="text" name="first_name" value={user.first_name} />
-        <label>Last Name:</label>
-        <input type="text" name="last_name" value={user.last_name} />
-        <label>Username: </label>
-        <input type="text" name="username" value={user.username} />
-        <label>Password: </label>
-        <input type="password" name="password" />
+        <label>User Id: {user.user_id}</label><br />
+        <label>First Name:</label><br />
+        <input type="text" name="first_name" value={user.first_name} /><br />
+        <label>Last Name:</label><br />
+        <input type="text" name="last_name" value={user.last_name} /><br />
+        <label>Username: </label><br />
+        <input type="text" name="username" value={user.username} /><br />
+        <label>Password: </label><br />
+        <input type="password" name="password" /><br />
         <button type="submit">Save</button>
 
       </form>

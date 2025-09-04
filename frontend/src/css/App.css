@@ -124,3 +124,8 @@ button:focus,
 button:focus-visible {
   outline: 4px auto #00ff99;
 }
+
+input {
+  color: #00ff99;
+  font-family: inherit;
+}

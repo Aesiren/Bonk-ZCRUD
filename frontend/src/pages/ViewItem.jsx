@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getOneItem, editItem } from '../api/api.js';
 import { UserContext } from '../context/UserContext';
 import Alert from '@mui/material/Alert'
@@ -12,6 +12,7 @@ function ViewItem() {
   const { user } = useContext(UserContext);
   const [addAlert, setAddAlert] = useState(false);
   const [ownAlert, setOwnAlert] = useState(false)
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -70,6 +71,9 @@ function ViewItem() {
     setOwnAlert(false);
   }
 
+  function Return() {
+    navigate
+  }
   if (!item) {
     return (<>Loading</>)
   }
@@ -88,6 +92,7 @@ function ViewItem() {
           <h3>Only the owning user can edit an item</h3>
         </Alert>
       )}
+      <button onClick={() => { navigate('/items') }}>Return</button>
       <button onClick={() => switchView()} disabled={edit}>Edit Item</button><br />
       <form className="view-form" action={updateItem}>
         <label>Item ID:</label><br />
@@ -104,6 +109,7 @@ function ViewItem() {
         <br />
         <label>Quantity:</label><br />
         <input type="number" disabled={!edit} name="quantity" defaultValue={item[0].quantity} />
+        <br />
         <button type="submit" disabled={!edit}>Save</button>
       </form>
 

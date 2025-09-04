@@ -32,10 +32,14 @@ function ItemView() {
     `,
     backgroundSize: '20px 20px',
     borderRadius: 3,
-    boxShadow: '0 0 10px #00ffff',
-    padding: 3
+    boxShadow: '0 0 10px #00ff99',
+    padding: 3,
+    width: .95
   }
 
+  const TableSX = {
+    width: 1
+  }
   const CellSX = {
     color: '#00ff99',
     fontFamily: 'Orbitron, monospace'
@@ -121,7 +125,7 @@ function ItemView() {
           <TableContainer component={Paper}
             sx={PaperSX}
           >
-            <Table aria-label="simple table">
+            <Table sx={TableSX}>
               <TableHead>
                 <TableRow sx={RowSX}>
                   <TableCell align='center' sx={CellSX}>ID</TableCell>
@@ -135,7 +139,9 @@ function ItemView() {
               <TableBody>
                 {userItems.map((item, key) => {
                   return (
+
                     <TableRow key={key} sx={RowSX}>
+
                       <TableCell align='center' sx={CellSX}>{item.item_id}</TableCell>
                       <TableCell align='center' sx={CellSX}>{item.user}</TableCell>
                       <TableCell align='center' sx={CellSX}>{item.item_name}</TableCell>
@@ -146,6 +152,7 @@ function ItemView() {
                         <button onClick={() => deleteItemClick(item.item_id, item.user)}>Delete</button>
                       </TableCell>
                     </TableRow>
+
                   )
                 })}
               </TableBody>
@@ -174,7 +181,7 @@ function ItemView() {
         <div className="itemTable">
           <TableContainer component={Paper}
             sx={PaperSX}>
-            <Table>
+            <Table sx={TableSX}>
               <TableHead>
                 <TableRow sx={RowSX}>
                   <TableCell align='center' sx={CellSX}>ID</TableCell>
@@ -188,6 +195,7 @@ function ItemView() {
               <TableBody>
                 {items.map((item, key) => {
                   return (
+
                     <TableRow key={key} sx={RowSX}>
                       <TableCell align='center' sx={CellSX}>{item.item_id}</TableCell>
                       <TableCell align='center' sx={CellSX}>{item.user}</TableCell>
