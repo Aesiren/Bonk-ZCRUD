@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { addItem } from "../api/api.js";
 import Alert from '@mui/material/Alert';
@@ -9,7 +9,9 @@ export default function AddItem() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
-
+  useEffect(() => {
+    console.log(user);
+  }, [])
   async function addData(formData) {
     let data = {
       user: user.user_id,
@@ -24,7 +26,7 @@ export default function AddItem() {
 
   }
 
-  if (!user) {
+  if (!user.user_id) {
     return (
       <Alert variant="filled" severity="error">
         <h1>You can only add items as a registered user.</h1><br />

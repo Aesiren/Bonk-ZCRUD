@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { addUser, checkUserByName, userLogin, getUser } from "../api/api.js"
 import { UserContext } from "../context/UserContext";
+import Alert from '@mui/material/Alert';
 
 function Signup() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-
+  const [userAlert, setUserAlert] = useState(false);
+  const [passAlert, setPassAlert] = useState(false);
 
   async function addData(formData) {
     const first_name = formData.get("first_name");
@@ -22,10 +24,12 @@ function Signup() {
     let currentUser;
 
     if (!usernameCheck) {
-      alert('Username already exists. Please choose a different username')
+      //('Username already exists. Please choose a different username')
+      setUserAlert(true);
     }
     if (!passCheck) {
-      alert('Passwords do not match')
+      //alert('Passwords do not match')
+      setPassAlert(true);
     }
 
     if (usernameCheck && passCheck) {
@@ -61,6 +65,11 @@ function Signup() {
     }
   }
 
+  function resetAlert() {
+    setUserAlert(false);
+    setPassAlert(false);
+  }
+
   function checkPassword(pass1, pass2) {
     if (pass1 === pass2) {
       return true;
@@ -86,6 +95,16 @@ function Signup() {
         <input type="password" name="password2" /><br />
         <button type="submit">Create Account</button>
       </form>
+      {userAlert && (
+        <Alert severity="error" onClose={() => resetAlert()}>
+          Username already exists
+        </Alert>
+      )}
+      {passAlert && (
+        <Alert severity="error" onClose={() => resetAlert()}>
+          Passwords do not match
+        </Alert>
+      )}
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from "react-router-dom";
 import { getOneItem, editItem } from '../api/api.js';
 import { UserContext } from '../context/UserContext';
+import Alert from '@mui/material/Alert'
 
 
 function ViewItem() {
@@ -9,6 +10,8 @@ function ViewItem() {
   const [item, setItem] = useState(null);
   const [edit, setEdit] = useState(false);
   const { user } = useContext(UserContext);
+  const [addAlert, setAddAlert] = useState(false);
+  const [ownAlert, setOwnAlert] = useState(false)
 
 
   useEffect(() => {
@@ -47,7 +50,8 @@ function ViewItem() {
       switchView();
     }
     else {
-      alert('You must be logged in to add an item')
+      //alert('You must be logged in to add an item')
+      setAddAlert(true);
     }
   }
 
@@ -55,10 +59,15 @@ function ViewItem() {
     if (user.user_id === item[0].user) {
       setEdit(!edit);
     } else {
-      alert('Only the owning user can edit an item')
-
+      //alert('Only the owning user can edit an item')
+      setOwnAlert(true);
     }
 
+  }
+
+  function turnOffAlert() {
+    setAddAlert(false);
+    setOwnAlert(false);
   }
 
   if (!item) {
@@ -68,6 +77,17 @@ function ViewItem() {
   return (
     <div className="view-item">
       <h1>Item Details</h1>
+      {addAlert && (
+        <Alert severity="error" onClose={() => turnOffAlert()}>
+          <h3>You must be logged in to add an item</h3>
+        </Alert>
+      )}
+
+      {ownAlert && (
+        <Alert severity="error" onClose={() => turnOffAlert()}>
+          <h3>Only the owning user can edit an item</h3>
+        </Alert>
+      )}
       <button onClick={() => switchView()} disabled={edit}>Edit Item</button><br />
       <form className="view-form" action={updateItem}>
         <label>Item ID:</label><br />

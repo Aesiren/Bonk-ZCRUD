@@ -19,7 +19,7 @@ export async function getItemsByUser(userId) {
 
 export async function checkUserByName(username) {
   let data = await fetch(`${backend}/user/username/${username}`).then((res) => res.json());
-  let check = data > 0 ? false : true;
+  let check = data > 0 ? true : false;
   return check;
 }
 

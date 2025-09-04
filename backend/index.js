@@ -124,6 +124,10 @@ app.get('/user/:user', (req, res) => {
     })
 })
 
+//remove after testing
+app.get('/all/user', (req, res) => {
+  knex('user').select('*').from('user').then(data => { res.status(200).json(data) })
+})
 app.get('/user/:user/items', (req, res) => {
   const id = req.params.user;
 
@@ -197,7 +201,7 @@ app.delete('/user/:userid/delete', async (req, res) => {
   try {
     await knex('user').where('user_id', id).del();
     console.log('User deleted');
-    res.status(500).json({ message: 'User deleted' });
+    res.status(200).json({ message: 'User deleted' });
   } catch (err) {
     console.error('ERROR ', err);
     res.status(500).json({ error: 'User failed to delete' });
