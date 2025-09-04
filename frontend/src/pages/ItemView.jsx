@@ -4,6 +4,14 @@ import { getAllItems, getItemsByUser, deleteItem } from "../api/api.js";
 import { UserContext } from "../context/UserContext";
 import ConfirmDialog from "../components/Dialog.jsx";
 import Alert from '@mui/material/Alert';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import '../css/ItemView.css'
 
 function ItemView() {
   const [items, setItems] = useState([]);
@@ -15,6 +23,34 @@ function ItemView() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [alert, setAlert] = useState(false);
 
+  const PaperSX = {
+    elevation: 0,
+    backgroundColor: '#0f0f0f',
+    backgroundImage: `
+      linear-gradient(#222 1px, transparent 1px),
+      linear-gradient(90deg, #222 1px, transparent 1px)
+    `,
+    backgroundSize: '20px 20px',
+    borderRadius: 3,
+    boxShadow: '0 0 10px #00ffff',
+    padding: 3
+  }
+
+  const CellSX = {
+    color: '#00ff99',
+    fontFamily: 'Orbitron, monospace'
+  }
+
+  const RowSX = {
+    '&:hover': {
+      backgroundColor: '#111',
+      color: '#00ff99',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease-in-out'
+    },
+    boxShadow: '0 0 10px #00ff99',
+    textShadow: '0 0 2px #00ff99, 0 0 5px #00ff99'
+  }
   useEffect(() => {
     const temp = async () => {
       let data = await getAllItems();
@@ -77,34 +113,44 @@ function ItemView() {
             Only the owner can delete an item.
           </Alert>
         )}
+
         <button onClick={() => switchView()}>All Items</button>
         <button onClick={() => { navigate('/items/new') }}>Add Item</button>
-
+        <br /><br />
         <div className="itemTable">
-          <table>
-            <tr>
-              <th>Id</th>
-              <th>Owner</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>Options</th>
-            </tr>
-            {userItems.map((item, key) => {
-              return (<tr>
-                <td>{item.item_id}</td>
-                <td>{item.user}</td>
-                <td>{item.item_name}</td>
-                <td>{item.description}</td>
-                <td>{item.quantity}</td>
-                <td>
-                  <Link to={`/items/${item.item_id}`}><button>View</button></Link>
-                  <button onClick={() => deleteItemClick(item.item_id, item.user)}>Delete</button>
-                </td>
-
-              </tr>)
-            })}
-          </table>
+          <TableContainer component={Paper}
+            sx={PaperSX}
+          >
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow sx={RowSX}>
+                  <TableCell align='center' sx={CellSX}>ID</TableCell>
+                  <TableCell align='center' sx={CellSX}>Owner</TableCell>
+                  <TableCell align='center' sx={CellSX}>Name</TableCell>
+                  <TableCell align='center' sx={CellSX}>Description</TableCell>
+                  <TableCell align='center' sx={CellSX}>Quantity</TableCell>
+                  <TableCell align='center' sx={CellSX}>Options</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {userItems.map((item, key) => {
+                  return (
+                    <TableRow key={key} sx={RowSX}>
+                      <TableCell align='center' sx={CellSX}>{item.item_id}</TableCell>
+                      <TableCell align='center' sx={CellSX}>{item.user}</TableCell>
+                      <TableCell align='center' sx={CellSX}>{item.item_name}</TableCell>
+                      <TableCell align='center' className='truncated' sx={CellSX}>{item.description}</TableCell>
+                      <TableCell align='center' sx={CellSX}>{item.quantity}</TableCell>
+                      <TableCell align='center' sx={CellSX}>
+                        <Link to={`/items/${item.item_id}`}><button>View</button></Link>
+                        <button onClick={() => deleteItemClick(item.item_id, item.user)}>Delete</button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
         </div>
       </div>
@@ -124,35 +170,43 @@ function ItemView() {
         )}
         <button onClick={() => switchView()}>My Items</button>
         <button onClick={() => { navigate('/items/new') }}>Add Item</button>
-
+        <br /><br />
         <div className="itemTable">
-          <table>
-            <tr>
-              <th>Id</th>
-              <th>Owner</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>Options</th>
-            </tr>
-            {items.map((item, key) => {
-              return (<tr>
-                <td>{item.item_id}</td>
-                <td>{item.user}</td>
-                <td>{item.item_name}</td>
-                <td>{item.description}</td>
-                <td>{item.quantity}</td>
-                <td>
-                  <Link to={`/items/${item.item_id}`}><button>View</button></Link>
-                  <button onClick={() => deleteItemClick(item.item_id, item.user)}>Delete</button>
-                </td>
-
-              </tr>)
-            })}
-          </table>
+          <TableContainer component={Paper}
+            sx={PaperSX}>
+            <Table>
+              <TableHead>
+                <TableRow sx={RowSX}>
+                  <TableCell align='center' sx={CellSX}>ID</TableCell>
+                  <TableCell align='center' sx={CellSX}>Owner</TableCell>
+                  <TableCell align='center' sx={CellSX}>Name</TableCell>
+                  <TableCell align='center' sx={CellSX}>Description</TableCell>
+                  <TableCell align='center' sx={CellSX}>Quantity</TableCell>
+                  <TableCell align='center' sx={CellSX}>Options</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {items.map((item, key) => {
+                  return (
+                    <TableRow key={key} sx={RowSX}>
+                      <TableCell align='center' sx={CellSX}>{item.item_id}</TableCell>
+                      <TableCell align='center' sx={CellSX}>{item.user}</TableCell>
+                      <TableCell align='center' sx={CellSX}>{item.item_name}</TableCell>
+                      <TableCell align='center' className='truncated' sx={CellSX}>{item.description}</TableCell>
+                      <TableCell align='center' sx={CellSX}>{item.quantity}</TableCell>
+                      <TableCell align='center' sx={CellSX}>
+                        <Link to={`/items/${item.item_id}`}><button>View</button></Link>
+                        <button onClick={() => deleteItemClick(item.item_id, item.user)}>Delete</button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
         </div>
-      </div>
+      </div >
     )
   }
 
