@@ -41,11 +41,11 @@ function App() {
 
 function Header() {
   const { user } = useContext(UserContext);
-
+  const isLoggedIn = user && user.user_id > 0;
   return (
     <div className="header">
       <h1>Matrix Inventory</h1>
-      {user.first_name != "" && (<label>Welcome {user.first_name}</label>)}
+      {isLoggedIn && (<label>Welcome Agent {user.first_name}</label>)}
     </div>
   )
 }
