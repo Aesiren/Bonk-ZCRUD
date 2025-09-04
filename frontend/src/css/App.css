@@ -17,22 +17,35 @@
   grid-column-start: 1;
   grid-column-end: 3;
   width: 100%;
-  border: 10px;
-  border-style: inset;
-  border-color: silver;
+  background-color: #000000;
+  background-image: linear-gradient(#222 1px, transparent 1px), linear-gradient(90deg, #222 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: #00ff99;
+  font-family: Orbitron, monospace;
+  animation: pulseGlow 2s infinite;
 }
 
 .sidebar {
   grid-row-start: 2;
   grid-column-start: 1;
-  border: 10px;
-  border-style: inset;
-  border-color: silver;
+  justify-content: space-between;
+  background-color: #000000;
+  background-image: linear-gradient(#222 1px, transparent 1px), linear-gradient(90deg, #222 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: #00ff99;
+  font-family: Orbitron, monospace;
+  animation: pulseGlow 2s infinite;
 }
 
 #main {
   grid-row-start: 2;
   grid-column-start: 2;
+  background-color: #000000;
+  background-image: linear-gradient(#222 1px, transparent 1px), linear-gradient(90deg, #222 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: #00ff99;
+  font-family: Orbitron, monospace;
+  animation: pulseGlow 2s infinite;
 }
 
 .logo {
@@ -72,4 +85,42 @@
 
 .read-the-docs {
   color: #888;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 5px #00ff99;
+  }
+
+  50% {
+    box-shadow: 0 0 20px #00ff99;
+  }
+
+  100% {
+    box-shadow: 0 0 5px #00ff99;
+  }
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #000000;
+  color: #00ff99;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+button:hover {
+  box-shadow: #00ff99 0px 5px 25px;
+  border-color: #00ff99;
+  transform: translate3d(0px, -1px, 0px)
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto #00ff99;
 }

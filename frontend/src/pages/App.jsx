@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import '../css/App.css'
+import '@fontsource/orbitron';
 import { UserContext } from "../context/UserContext.js";
 import Login from "./Login";
 import EditProfile from "./EditProfile";
@@ -43,8 +44,8 @@ function Header() {
 
   return (
     <div className="header">
-      <h1>CRUD App</h1>
-      <label>Welcome {user.first_name}</label>
+      <h1>Matrix Inventory</h1>
+      {user.first_name != "" && (<label>Welcome {user.first_name}</label>)}
     </div>
   )
 }
@@ -60,8 +61,8 @@ function Sidebar() {
   if (user.user_id > 0) {
     return (
       <div className="sidebar">
-        <h1>Sidebar</h1>
-        <Link to="/"><button>Home</button></Link><br />
+        <h1>Links</h1>
+        <Link to="/"><button>Root</button></Link><br />
         <Link to="/profile"><button>My Profile</button></Link><br />
         <Link to="/items"><button>My Items</button></Link><br />
         <button onClick={() => logout()}>Logout</button>
@@ -70,8 +71,8 @@ function Sidebar() {
   }
   return (
     <div className="sidebar">
-      <h1>Sidebar</h1>
-      <Link to="/"><button>Home</button></Link><br />
+      <h1>Links</h1>
+      <Link to="/"><button>Root</button></Link><br />
       <Link to="/login"><button>Login</button></Link><br />
       <Link to="/signup"><button>Signup</button></Link><br />
       <Link to="/items"><button>All Items</button></Link>

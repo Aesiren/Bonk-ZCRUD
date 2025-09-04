@@ -55,10 +55,10 @@ function Login() {
       />
       <h1>Login</h1>
       <form className="login-form" action={checkLogin}>
-        <label>Username:</label>
-        <input type="text" name="username" required="true" />
-        <label>Password:</label>
-        <input type="text" name="password" required="true" />
+        <label>Username: </label>
+        <input type="text" name="username" required="true" /><br />
+        <label>Password: </label>
+        <input type="text" name="password" required="true" /><br />
         <button className="submitLogin" type="submit">Login</button>
       </form>
     </div>
