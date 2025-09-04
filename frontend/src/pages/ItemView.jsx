@@ -91,6 +91,12 @@ function ItemView() {
     let temp = await getItemsByUser(user.user_id);
     setUserItems(temp);
     setDialogOpen(false);
+    const tempitem = async () => {
+      let data = await getAllItems();
+      console.log(data);
+      setItems(data);
+    }
+    tempitem();
   }
 
   function onDeny() {

@@ -10,7 +10,7 @@ function Home() {
         <ReactTyped
           startWhenVisible
           strings={[text]}
-          typeSpeed={50}
+          typeSpeed={20}
           cursorChar=">"
           showCursor={true}
         />

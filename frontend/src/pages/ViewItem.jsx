@@ -49,6 +49,7 @@ function ViewItem() {
       setItem(temp);
 
       switchView();
+      navigate('/items');
     }
     else {
       //alert('You must be logged in to add an item')
@@ -71,9 +72,6 @@ function ViewItem() {
     setOwnAlert(false);
   }
 
-  function Return() {
-    navigate
-  }
   if (!item) {
     return (<>Loading</>)
   }
